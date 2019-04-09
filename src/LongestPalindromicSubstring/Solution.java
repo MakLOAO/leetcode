@@ -17,30 +17,27 @@ public class Solution {
  * @create: 2019-03-27 21:57
  **/
     public String longestPalindrome(String s) {
-        String result = "", temp;
-        for (int i = 0; i < s.length(); i++) {
-            temp = searchPalindrome(s, i, i);
-            result = result.length() > temp.length() ? result : temp;
-            temp = searchPalindrome(s, i, i + 1);
-            result = result.length() > temp.length() ? result : temp;
+            String result = "", temp;
+            for (int i = 0; i < s.length(); i++) {
+                temp = searchPalindrome(s, i, i);
+                result = result.length() > temp.length() ? result : temp;
+                temp = searchPalindrome(s, i, i + 1);
+                result = result.length() > temp.length() ? result : temp;
+            }
+            return result;
         }
-        return result;
-    }
 
-    private String searchPalindrome(String s, int left, int right) {
-        while (left >= 0 && right < s.length()) {
-            if (s.charAt(left) == s.charAt(right)) {
+        private String searchPalindrome(String s, int left, int right) {
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
                 left--; right++;
-            } else break;
-        }
+            }
         left++; right--;
         // s.substring(beginIndex, endIndex),beginIndex is inclusive, endIndex is exclusive, [beginIndex, endIndex)
         return s.substring(left, right + 1);
     }
-}
 
-// 答案的解法
 
+    // 答案的解法，使用长度返回会比子字串返回要快，大概是substring时间复杂度的问题
     public String longestPalindrome1(String s) {
         if (s == null || s.length() < 1) return "";
         int start = 0, end = 0;
@@ -64,3 +61,4 @@ public class Solution {
         }
         return R - L - 1;
     }
+}
